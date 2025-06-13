@@ -10,6 +10,11 @@ contract contractMomos
         bytes32 tokenHash;
         bool isSent;
     }
+    /* se ejecutará cuando se deploye el contrato */
+    constructor() {
+        // constructor code here
+    }
+
     /* storage variables (permanent)*/
     // mapping(bytes32 => niggaFeetData) public niggaFeetDatas;
 
