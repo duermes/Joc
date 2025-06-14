@@ -5,14 +5,17 @@ contract contractMomos
     /* declarations (no memory usage) */
     struct niggaFeetData {
         uint256 dateCreation;
-        address walletSrc;
+        address sender;
         uint256 amount;
         bytes32 tokenHash;
         bool isSent;
     }
+
+
+
     /* se ejecutará cuando se deploye el contrato */
     constructor() {
-        // constructor code here
+        // constructor code here    
     }
 
     /* storage variables (permanent)*/
