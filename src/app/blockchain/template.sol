@@ -5,10 +5,11 @@ contract GiftCard {
         address sender;
         uint256 amount;
         bool redeemed;
+        uint256 creationDate;
     }
 
     // Each recipient can have multiple gift cards
-    mapping(address => Gift[]) public gifts;
+    mapping(bytes32 => Gift[]) public gifts;
 
     event GiftCreated(address indexed sender, address indexed recipient, uint256 amount, uint256 giftId);
     event GiftRedeemed(address indexed recipient, uint256 amount, uint256 giftId);
