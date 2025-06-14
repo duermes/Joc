@@ -34,10 +34,23 @@ export async function POST(req: NextRequest) {
     // const data = encodeFunctionData({
     //   abi: abi,
     //   functionName: "holdCrypto",
-    //   args: [amount, string(functionName)],
+    //   args: [amount, hashedToken],
     // });
 
-    return NextResponse.json({
+    const tx: TransactionSerializable = {
+      to: CONTRACT_ADDRES,
+      data: data,
+      chainId: avalancheFuji.id,
+      type: `legacy`,
+    };
+    const serialized = serialize(tx);
+
+    const resp: ExecutionResponse = {
+      serializedTransaction: serialized,
+      chainId: avalancheFuji.name,
+    };
+
+    return NextResponse.json(resp, {
       status: 200,
       headers: {
         "Access-Control-Allow-Origin": "*",
