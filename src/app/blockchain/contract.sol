@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0
-// solidity momos
+// solidity
 pragma solidity >=0.8.0 <0.10.0;
 
-contract contractMomos 
+contract contractRedLetter
 {
     // Might use this one day, but not today
     // address public minter;
