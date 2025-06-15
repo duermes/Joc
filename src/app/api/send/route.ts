@@ -1,5 +1,6 @@
 import { abi } from "@/app/blockchain/abi";
 import { CONTRACT_ADDRES } from "@/app/utils/config";
+import { hashToken } from "@/app/utils/yes";
 import {
   createMetadata,
   Metadata,
@@ -7,7 +8,7 @@ import {
   ExecutionResponse,
 } from "@sherrylinks/sdk";
 import { NextRequest, NextResponse } from "next/server";
-import { TransactionSerializable, encodeFunctionData } from "viem";
+import { TransactionSerializable, encodeFunctionData, parseEther } from "viem";
 import { avalancheFuji } from "viem/chains";
 import { serialize } from "wagmi";
 
@@ -30,18 +31,19 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // THIS IS HOW WE ARE SUPOSSED TO SEND INFO TO THE CONTRACT
-    // const data = encodeFunctionData({
-    //   abi: abi,
-    //   functionName: "holdCrypto",
-    //   args: [amount, hashedToken],
-    // });
+    const token = hashToken();
+    const data = encodeFunctionData({
+      abi: abi,
+      functionName: "createGift",
+      args: [token],
+    });
 
     const tx: TransactionSerializable = {
       to: CONTRACT_ADDRES,
       data: data,
       chainId: avalancheFuji.id,
       type: `legacy`,
+      value: parseEther(amount),
     };
     const serialized = serialize(tx);
 
@@ -50,14 +52,22 @@ export async function POST(req: NextRequest) {
       chainId: avalancheFuji.name,
     };
 
-    return NextResponse.json(resp, {
-      status: 200,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization",
-      },
-    });
+    const host = req.headers.get("host") || "localhost:3000";
+    const protocol = req.headers.get("x-forwarded-proto") || "http";
+
+    const url = `${protocol}://${host}/claim/${token}`;
+
+    return NextResponse.json(
+      { resp, url },
+      {
+        status: 200,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        },
+      }
+    );
   } catch (err) {
     console.log(err);
     return NextResponse.json(
