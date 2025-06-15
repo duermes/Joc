@@ -22,6 +22,8 @@ FOR SEND endpoint we need functions: createGift (holds sent amount with the toke
 Verify the expirationDate of the token pls
 creategift: holds the amount, reduces the amount from the sender wallet and validates also that the wallet has enough balance to make the transaction
 claimgift: if the gifts wasnt cliaimed its supossed to return to sender wallet money back.
+CONCTRACT ADDRES = 0x9A177c765b5a9C39929ccD6194e7C3D5527e744A
+testkey key (private key)= 3caeb1bd186ef03826ec09b18e157ac80cbbd3943397c5bfc1bbd596242bb4da
 
 ## Important data
 
