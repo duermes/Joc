@@ -12,6 +12,16 @@ import { TransactionSerializable, encodeFunctionData, parseEther } from "viem";
 import { avalancheFuji } from "viem/chains";
 import { serialize } from "wagmi";
 
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+};
+
+export async function OPTIONS(req: NextRequest) {
+  return NextResponse.json({}, { headers: corsHeaders });
+}
+
 export async function POST(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
@@ -20,14 +30,7 @@ export async function POST(req: NextRequest) {
     if (!amount) {
       return NextResponse.json(
         { error: "Amount parameter is required" },
-        {
-          status: 400,
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type, Authorization",
-          },
-        }
+        { status: 400, headers: corsHeaders }
       );
     }
 
@@ -58,17 +61,7 @@ export async function POST(req: NextRequest) {
 
     const url = `${protocol}://${host}/claim/${token}`;
 
-    return NextResponse.json(
-      { resp },
-      {
-        status: 200,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type, Authorization",
-        },
-      }
-    );
+    return NextResponse.json(resp, { status: 200, headers: corsHeaders });
   } catch (err) {
     console.log(err);
     return NextResponse.json(
