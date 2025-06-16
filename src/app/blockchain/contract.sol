@@ -5,7 +5,7 @@ pragma solidity >=0.8.0 <0.10.0;
 contract contractRedLetter
 {
     // Might use this one day, but not today
-    // address public minter;
+    address public minter;
 
     /* declarations (no memory usage) */
     struct Gift {
@@ -25,9 +25,10 @@ contract contractRedLetter
 
 
     /* se ejecutará cuando se deploye el contrato */
-    // constructor() {
-    //     minter = msg.sender;   
-    // }
+    constructor() {
+        minter = msg.sender;   
+
+    }
 
     function claimGift(bytes32 hashedToken) external payable {
         require(hashedToken.length > 0, "WHAT DID WE SAY ABOUT EMPTY TOKENS, you can't claim anything without one");
