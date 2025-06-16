@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
     const url = `${protocol}://${host}/claim/${token}`;
 
     return NextResponse.json(
-      { resp, url },
+      { resp },
       {
         status: 200,
         headers: {
