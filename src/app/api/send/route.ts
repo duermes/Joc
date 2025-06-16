@@ -38,6 +38,7 @@ export async function POST(req: NextRequest) {
       args: [token],
     });
 
+    // grande lorena poniendo nombre muy descriptivos
     const tx: TransactionSerializable = {
       to: CONTRACT_ADDRES,
       data: data,
