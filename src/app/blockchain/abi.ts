@@ -1,6 +1,17 @@
 export const abi = [
   [
     {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "_expirationTimeInSeconds",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "constructor",
+    },
+    {
       anonymous: false,
       inputs: [
         {
@@ -95,6 +106,13 @@ export const abi = [
       type: "function",
     },
     {
+      inputs: [],
+      name: "giftExpirationTime",
+      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
       inputs: [{ internalType: "bytes32", name: "", type: "bytes32" }],
       name: "gifts",
       outputs: [
@@ -109,12 +127,32 @@ export const abi = [
       type: "function",
     },
     {
+      inputs: [],
+      name: "owner",
+      outputs: [{ internalType: "address", name: "", type: "address" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
       inputs: [
         { internalType: "bytes32", name: "hashedToken", type: "bytes32" },
       ],
       name: "refundGift",
       outputs: [],
-      stateMutability: "payable",
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "_newExpirationTimeInSeconds",
+          type: "uint256",
+        },
+      ],
+      name: "setExpirationTime",
+      outputs: [],
+      stateMutability: "nonpayable",
       type: "function",
     },
   ],
